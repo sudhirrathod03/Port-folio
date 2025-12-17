@@ -339,9 +339,14 @@ function Page() {
 
         <section id="projects" className="w-full py-12 sm:py-20">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-              Featured Projects
-            </h2>
+          <h1 className="text-xl sm:text-2xl font-bold tracking-widest uppercase text-indigo-400">
+              <ShinyText
+                text="Projects"
+                disabled={false}
+                speed={3}
+                className="custom-class"
+              />
+            </h1>
             <div className="w-20 h-1 bg-white mx-auto mt-4 rounded-full"></div>
           </div>
 
