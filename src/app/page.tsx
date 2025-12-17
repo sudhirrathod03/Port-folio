@@ -31,9 +31,9 @@ import {
   SiTailwindcss,
 } from "react-icons/si";
 import { FaGitAlt } from "react-icons/fa";
-import TextType from "@/components/TextType";
 import StarBorder from "@/components/StarBorder";
 import ShinyText from "@/components/ShinyText";
+import BlurText from "@/components/BlurText";
 
 function Page() {
   const [isVisible, setIsVisible] = useState(false);
@@ -146,7 +146,6 @@ function Page() {
       href: "https://leetcode.com/u/Sudhir_Rathod_05/", // Replace with your username
       label: "LeetCode",
     },
-
   ];
 
   const NotificationIcon =
@@ -157,6 +156,10 @@ function Page() {
     notification.type === "success"
       ? "shadow-indigo-500/50"
       : "shadow-red-500/50";
+
+  const handleAnimationComplete = () => {
+    console.log("Animation completed!");
+  };
 
   return (
     <div
@@ -177,7 +180,6 @@ function Page() {
           <p className="text-sm font-medium">{notification.message}</p>
         </div>
       </div>
-
 
       <nav
         className={`fixed top-0 left-0 right-0 z-50 py-4 bg-black/90 backdrop-blur-sm 
@@ -234,18 +236,14 @@ function Page() {
         >
           <div className="space-y-8 order-2 md:order-1">
             <h1 className="text-2xl sm:text-5xl lg:text-3xl font-extrabold leading-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-500 whitespace-nowrap">
-                {" "}
-                <TextType
-                  text={["MERN Stack Developer"]}
-                  as="p"
-                  typingSpeed={50}
-                  pauseDuration={1500}
-                  showCursor={true}
-                  cursorCharacter="|"
-                  textColors={["silver"]}
-                />
-              </span>
+              <BlurText
+                text="MERN Stack Developer "
+                delay={150}
+                animateBy="letters"
+                direction="top"
+                className="text-2xl mb-8"
+                onAnimationComplete={handleAnimationComplete}
+              />
             </h1>
             <p className="text-lg text-gray-400 max-w-lg">
               Computer Engineering graduate and MERN stack developer with
@@ -297,7 +295,7 @@ function Page() {
               <div className="relative w-full h-full p-2 bg-gray-800 rounded-full overflow-hidden border-4 border-white-600/50 shadow-2xl shadow-indigo-500/10 transform transition-transform duration-500 hover:scale-[1.02]">
                 <img
                   src="/me.png"
-                  alt="Sudhir Rathod - Profile Picture"
+                  alt="Profile Picture"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
