@@ -34,6 +34,7 @@ import { FaGitAlt } from "react-icons/fa";
 import StarBorder from "@/components/StarBorder";
 import ShinyText from "@/components/ShinyText";
 import BlurText from "@/components/BlurText";
+import FadeContent from "@/components/FadeContent";
 
 function Page() {
   const [isVisible, setIsVisible] = useState(false);
@@ -102,6 +103,7 @@ function Page() {
 
   const projectsData = [
     {
+      id: 1,
       title: "FinoSphere : Stock Trading Platform",
       description:
         "Developed a full-stack stock trading platform using the MERN stack, enabling users to execute buy orders and monitor portfolio holdings, resulting in a 100% feature-complete and responsive dashboard.",
@@ -111,6 +113,7 @@ function Page() {
       liveLink: "https://frontend-iota-livid.vercel.app/",
     },
     {
+      id: 2,
       title: "NestAway - Geo-Spatial Listing Engine ",
       description:
         "Developed a scalable property rental platform utilizing the Model-View-Controller (MVC) architecture, allowing users to seamlessly browse, list, and manage rental properties.",
@@ -156,7 +159,6 @@ function Page() {
     notification.type === "success"
       ? "shadow-green-500/50"
       : "shadow-red-500/50";
-
 
   return (
     <div
@@ -239,7 +241,6 @@ function Page() {
                 animateBy="letters"
                 direction="top"
                 className="text-2xl mb-8"
-
               />
             </h1>
             <p className="text-lg text-gray-400 max-w-lg">
@@ -318,20 +319,27 @@ function Page() {
             {skillsData.map((skill, index) => {
               const Icon = skill.icon;
               return (
-                <div
+                <FadeContent
                   key={skill.name}
-                  className={`group p-6 flex flex-col items-center bg-gray-900/50 backdrop-blur-sm rounded-xl 
-                              border border-gray-800 hover:border-gray-400 transition-all duration-300 
-                              transform hover:scale-105 hover:shadow-xl hover:shadow-gray-800/10`}
+                  blur={true}
+                  duration={1000}
+                  ease="ease-out"
+                  initialOpacity={0}
                 >
-                  <Icon
-                    className={`w-10 h-10 mb-3 ${skill.color} group-hover:rotate-6 transition-transform`}
-                  />
+                  <div
+                    className={`group p-6 flex flex-col items-center bg-gray-900/50 backdrop-blur-sm rounded-xl
+                              border border-gray-800 hover:border-gray-400 transition-all duration-300
+                              transform hover:scale-105 hover:shadow-xl hover:shadow-gray-800/10`}
+                  >
+                    <Icon
+                      className={`w-10 h-10 mb-3 ${skill.color} group-hover:rotate-6 transition-transform`}
+                    />
 
-                  <h3 className="text-lg font-semibold text-white mb-1">
-                    {skill.name}
-                  </h3>
-                </div>
+                    <h3 className="text-lg font-semibold text-white mb-1">
+                      {skill.name}
+                    </h3>
+                  </div>
+                </FadeContent>
               );
             })}
           </div>
@@ -339,7 +347,7 @@ function Page() {
 
         <section id="projects" className="w-full py-12 sm:py-20">
           <div className="text-center mb-10">
-          <h1 className="text-xl sm:text-2xl font-bold tracking-widest uppercase text-indigo-400">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-widest uppercase text-indigo-400">
               <ShinyText
                 text="Projects"
                 disabled={false}
@@ -351,54 +359,59 @@ function Page() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {projectsData.map((project, index) => (
-              <div
-                key={project.title}
-                className="group p-5 sm:p-6 bg-gray-900 rounded-xl border border-gray-700  transition-all duration-300 transform hover:scale-[1.02] hover:border-white/50 hover:shadow-xl hover:shadow-gray-800/50"
+            {projectsData.map((project, id) => (
+              <FadeContent
+                key={project.id}
+                blur={true}
+                duration={1000}
+                ease="ease-out"
+                initialOpacity={0}
               >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white transition-colors">
-                    {project.title}
-                  </h3>
-                  <Code2 className="w-6 h-6 text-gray-400 transition-transform group-hover:text-indigo-400 group-hover:scale-110" />
-                </div>
+                <div className="group p-5 sm:p-6 bg-gray-900 rounded-xl border border-gray-700  transition-all duration-300 transform hover:scale-[1.02] hover:border-white/50 hover:shadow-xl hover:shadow-gray-800/50">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white transition-colors">
+                      {project.title}
+                    </h3>
+                    <Code2 className="w-6 h-6 text-gray-400 transition-transform group-hover:text-indigo-400 group-hover:scale-110" />
+                  </div>
 
-                <p className="text-gray-400 mb-4 text-sm leading-relaxed">
-                  {project.description}
-                </p>
+                  <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs font-medium px-3 py-1 bg-gray-700 text-white rounded-md border border-gray-600 whitespace-nowrap"
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs font-medium px-3 py-1 bg-gray-700 text-white rounded-md border border-gray-600 whitespace-nowrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-4 pt-2 border-t border-gray-700">
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-gray-300 hover:text-indigo-400 transition-colors"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <Github className="w-5 h-5" />
+                      <span className="text-sm font-medium">Code</span>
+                    </a>
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-1 border border-white text-black bg-white rounded-lg font-semibold hover:bg-indigo-600 hover:text-white transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span className="text-sm">Live Demo</span>
+                    </a>
+                  </div>
                 </div>
-
-                <div className="flex gap-4 pt-2 border-t border-gray-700">
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-300 hover:text-indigo-400 transition-colors"
-                  >
-                    <Github className="w-5 h-5" />
-                    <span className="text-sm font-medium">Code</span>
-                  </a>
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-3 py-1 border border-white text-black bg-white rounded-lg font-semibold hover:bg-indigo-600 hover:text-white transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span className="text-sm">Live Demo</span>
-                  </a>
-                </div>
-              </div>
+              </FadeContent>
             ))}
           </div>
         </section>
@@ -417,72 +430,79 @@ function Page() {
 
             <div className="w-20 h-1 bg-white mx-auto mt-4 rounded-full"></div>
           </div>
-          <div className="max-w-xl mx-auto p-6 sm:p-8 bg-gray-900 rounded-xl border border-gray-700 shadow-xl">
-            <form onSubmit={handleSubmit} method="POST" className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200"
-                />
-              </div>
+          <FadeContent
+            blur={true}
+            duration={1000}
+            ease="ease-out"
+            initialOpacity={0}
+          >
+            <div className="max-w-xl mx-auto p-6 sm:p-8 bg-gray-900 rounded-xl border border-gray-700 shadow-xl">
+              <form onSubmit={handleSubmit} method="POST" className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200"
+                  />
+                </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg  focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200"
-                />
-              </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg  focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200"
+                  />
+                </div>
 
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg  focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200 resize-none"
-                ></textarea>
-              </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg  focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 transition-colors duration-200 resize-none"
+                  ></textarea>
+                </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white text-black font-bold rounded-lg   shadow-md hover:bg-green-600 hover:text-white hover:shadow-indigo-500/50 transition-all duration-300"
-              >
-                Send Message
-                <Send className="w-5 h-5" />
-              </button>
-            </form>
-          </div>
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white text-black font-bold rounded-lg   shadow-md hover:bg-green-600 hover:text-white hover:shadow-indigo-500/50 transition-all duration-300"
+                >
+                  Send Message
+                  <Send className="w-5 h-5" />
+                </button>
+              </form>
+            </div>
+          </FadeContent>
         </section>
       </div>
 
